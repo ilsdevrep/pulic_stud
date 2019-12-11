@@ -6,13 +6,13 @@ jmp START
 
 INIT:
 	clr 	E
-	mov 	a,#28h ; 00101000 - DL=0, N = 1, F = 0 (ðàçðÿäíîñòü áóôåðà äàííûõ = 4, äâå ñòðîêè,ðàçìåð ìàòðèöû 5íà8 òî÷åê)
+	mov 	a,#28h ; 00101000 - DL=0, N = 1, F = 0 
 	call 	write_command
 	mov 	a,#0ch ; 00001110 - D = 1,C = 0,B = 0 (îòîáðîæåíèå ñèìâîëîâ âêëþ÷åíî,êóðñîð íå âèäåí,êóðñîð íå âèäåí)
 	call 	write_command
 	mov 	a,#06h ; 00000110 - I/D = 1,S = 0 (Ñäâèã ýêðàíà âëåâî(èíêðåìåíò àäðåñà)),ñäâèã ýêðàíà ïîñëå çàïèñè î÷åðåäíîãî çíà÷åíèÿ äàííûõ)
 	call 	write_command
-	mov 	a,#01h ; î÷èñòêà ýêðàíà
+	mov 	a,#01h ; Очистка экрана
 	call 	write_command
 	ret
 
@@ -28,11 +28,12 @@ timer:
 	nop
 	nop
 again:
-	mov 	r1, 293
-	DJNZ	r1, $
 
 	JNB 	TCON.5, $
 	CLR 	TCON.5
+	
+	mov 	r1, #255
+	DJNZ	r1, $
 	DJNZ 	R0, again
 
 skip:
